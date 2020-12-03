@@ -5,6 +5,7 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.io.Reader
 import java.util.Scanner
+import java.util.regex.Pattern
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -30,10 +31,11 @@ fun String?.fetchInput(year: Int, day: Int): InputStreamReader {
  */
 fun Reader.toIntFlow(delimiter: String = "\n"): Flow<Int> = flow {
   val scanner = Scanner(this@toIntFlow)
-  scanner.useDelimiter(delimiter)
+  scanner.useDelimiter(Pattern.compile(delimiter))
 
   while (scanner.hasNext()) {
-    val intVal = scanner.nextInt(10)
+    val token = scanner.next()
+    val intVal = token.toInt(10) // scanner.nextInt(10)
     emit(intVal)
   }
 }
