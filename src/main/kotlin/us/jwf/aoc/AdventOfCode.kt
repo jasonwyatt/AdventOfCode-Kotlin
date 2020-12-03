@@ -12,3 +12,13 @@ interface AdventOfCode {
    */
   suspend fun printResult(day: Int, part: Int, input: Reader)
 }
+
+abstract class BaseAdventOfCode(vararg ctors: () -> Day<*, *>) : AdventOfCode {
+  private val lookup = ctors.withIndex().associate { (index, ctor) -> (index + 1) to ctor }
+
+  override suspend fun printResult(day: Int, part: Int, input: Reader) {
+    val ctor = requireNotNull(lookup[day]) { "Day $day not supported yet." }
+    val result = if (part == 1) ctor().executePart1(input) else ctor().executePart2(input)
+    println(result.toString())
+  }
+}

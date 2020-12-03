@@ -8,9 +8,13 @@ import kotlinx.cli.required
 import kotlinx.coroutines.runBlocking
 import us.jwf.aoc.AdventOfCode
 import us.jwf.aoc.fetchInput
+import us.jwf.aoc2019.AdventOfCode2019
 import us.jwf.aoc2020.AdventOfCode2020
 
-val aocByYear = mapOf<Int, AdventOfCode>(
+private const val DEFAULT_YEAR = 2020
+
+private val aocByYear = mapOf(
+  2019 to AdventOfCode2019(),
   2020 to AdventOfCode2020()
 )
 
@@ -21,7 +25,7 @@ fun main(args: Array<String>): Unit = runBlocking {
     shortName = "y",
     fullName = "year",
     description = "Year of AoC"
-  ).default(2020)
+  ).default(DEFAULT_YEAR)
   val day by parser.option(
     ArgType.Int,
     shortName = "d",
