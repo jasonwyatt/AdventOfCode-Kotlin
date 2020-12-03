@@ -36,7 +36,8 @@ fun main(args: Array<String>): Unit = runBlocking {
   ).required()
   val inputFile by parser.argument(
     ArgType.String,
-    description = "Location of input file. If left unspecified, input will be read from stdin"
+    description = """Location of input file. If left unspecified, location 
+      |will be constructed from the year and day.""".trimMargin()
   ).optional()
 
   parser.parse(args)

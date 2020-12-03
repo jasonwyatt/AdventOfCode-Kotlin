@@ -10,7 +10,7 @@ import us.jwf.aoc.toIntFlow
 /**
  * Day One of AoC 2020.
  */
-class DayOne : Day<Int, Int> {
+class Day01AccountingFor2020 : Day<Int, Int> {
   /**
    * After saving Christmas five years in a row, you've decided to take a vacation at a nice
    * resort on a tropical island. Surely, Christmas will go on without you.

@@ -15,7 +15,12 @@ import kotlinx.coroutines.flow.flow
  * will be constructed and used.
  */
 fun String?.fetchInput(year: Int, day: Int): InputStreamReader {
-  val file = if (this == null) File("input/$year/day$day.txt") else File(this)
+  val dayNaught = if (day < 10) "0" else ""
+  val file = if (this == null) {
+    File("input/$year/day$dayNaught$day.txt")
+  } else {
+    File(this)
+  }
   require(file.exists()) { "No such file found at ${file.absolutePath}" }
   return InputStreamReader(FileInputStream(file), Charsets.UTF_8)
 }
@@ -49,5 +54,12 @@ fun Reader.toMatchFlow(
     val matchResult = pattern.find(raw) ?: continue
     emit(matchResult.groupValues)
   }
+}
+
+fun Reader.toLineFlow(): Flow<String> = flow {
+  val scanner = Scanner(this@toLineFlow)
+  scanner.useDelimiter("\n")
+
+  while (scanner.hasNext()) emit(scanner.next())
 }
 
