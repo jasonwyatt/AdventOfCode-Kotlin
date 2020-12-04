@@ -5,5 +5,6 @@ import us.jwf.aoc.BaseAdventOfCode
 class AdventOfCode2019 : BaseAdventOfCode(
   ::Day01RocketEquation,
   ::Day02ProgramAlarm,
-  ::Day03CrossedWires
+  ::Day03CrossedWires,
+  ::Day04SecureContainer
 )
