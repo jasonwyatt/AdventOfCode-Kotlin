@@ -65,3 +65,9 @@ fun Reader.toLineFlow(): Flow<String> = flow {
   while (scanner.hasNext()) emit(scanner.next())
 }
 
+/**
+ * Returns whether or not the receiving String is a valid base-10 integer within the provided
+ * [range].
+ */
+fun String.isIntInRange(range: IntRange): Boolean =
+  toIntOrNull(10)?.let { it in range } == true
