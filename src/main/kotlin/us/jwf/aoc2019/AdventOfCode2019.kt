@@ -6,5 +6,6 @@ class AdventOfCode2019 : BaseAdventOfCode(
   ::Day01RocketEquation,
   ::Day02ProgramAlarm,
   ::Day03CrossedWires,
-  ::Day04SecureContainer
+  ::Day04SecureContainer,
+  ::Day05SunnyAsteroids
 )
