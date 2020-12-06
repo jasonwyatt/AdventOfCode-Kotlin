@@ -7,5 +7,6 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day02TobogganLogin,
   ::Day03ArborealAvoidance,
   ::Day04PassportProcessing,
-  ::Day05BinaryBoarding
+  ::Day05BinaryBoarding,
+  ::Day06CustomCustoms
 )

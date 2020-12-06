@@ -58,9 +58,9 @@ fun Reader.toMatchFlow(
   }
 }
 
-fun Reader.toLineFlow(): Flow<String> = flow {
+fun Reader.toLineFlow(delimiter: String = "\n"): Flow<String> = flow {
   val scanner = Scanner(this@toLineFlow)
-  scanner.useDelimiter("\n")
+  scanner.useDelimiter(delimiter)
 
   while (scanner.hasNext()) emit(scanner.next())
 }
