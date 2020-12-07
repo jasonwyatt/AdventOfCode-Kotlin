@@ -68,8 +68,12 @@ class Day07HandyHaversacks : Day<Int, Int> {
         val source = match[2]
         match[3].split(", ")
           .map {
-            val dest = it.split(Regex(" "))
-            graph.addEdge(dest[1] + " " + dest[2], source, dest[0].toDouble())
+            val dest = it.split(" ")
+            graph.addEdge(
+              from = dest[1] + " " + dest[2],
+              to = source,
+              weight = dest[0].toDouble()
+            )
           }
       }
 
@@ -126,8 +130,12 @@ class Day07HandyHaversacks : Day<Int, Int> {
 
         match[3].split(", ")
           .map {
-            val dest = it.split(Regex(" "))
-            graph.addEdge(source, dest[1] + " " + dest[2], dest[0].toDouble())
+            val dest = it.split(" ")
+            graph.addEdge(
+              from = source,
+              to = dest[1] + " " + dest[2],
+              weight = dest[0].toDouble()
+            )
           }
       }
 

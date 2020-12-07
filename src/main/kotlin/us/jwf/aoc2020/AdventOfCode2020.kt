@@ -9,5 +9,6 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day04PassportProcessing,
   ::Day05BinaryBoarding,
   ::Day06CustomCustoms,
-  ::Day07HandyHaversacks
+  ::Day07HandyHaversacks,
+  ::Day08,
 )
