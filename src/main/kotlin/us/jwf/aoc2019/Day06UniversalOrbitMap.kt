@@ -17,7 +17,11 @@ class Day06UniversalOrbitMap : Day<Int, Int> {
         graph.addEdge(from, to)
       }
     println("Nodes (${graph.nodes.size}): ${graph.nodes}")
-    println(graph.containsCycle())
+
+    val subgraphs = graph.toSubgraphs()
+
+    println("Subgraphs: ${subgraphs.size}")
+    println(subgraphs.joinToString("\n"))
     return 0
   }
 
