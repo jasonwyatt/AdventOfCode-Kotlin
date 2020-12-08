@@ -89,7 +89,7 @@ class Day08HandheldHalting : Day<Int, Int> {
       }
       .toList()
 
-    return requireNotNull(instructions.runUntilLoop()).first
+    return instructions.runUntilLoop().first
   }
 
   /**
