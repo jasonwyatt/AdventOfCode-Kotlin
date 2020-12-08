@@ -10,5 +10,5 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day05BinaryBoarding,
   ::Day06CustomCustoms,
   ::Day07HandyHaversacks,
-  ::Day08,
+  ::Day08HandheldHalting,
 )

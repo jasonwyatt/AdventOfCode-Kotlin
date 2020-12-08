@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
   testImplementation(kotlin("test-junit"))
+  testImplementation("com.google.truth:truth:1.1")
   implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
 }
