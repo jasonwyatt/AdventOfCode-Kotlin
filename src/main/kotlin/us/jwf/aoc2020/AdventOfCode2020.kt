@@ -11,5 +11,5 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day06CustomCustoms,
   ::Day07HandyHaversacks,
   ::Day08HandheldHalting,
-  ::Day09,
+  ::Day09EncodingError,
 )

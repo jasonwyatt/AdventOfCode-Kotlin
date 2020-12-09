@@ -1,8 +1,6 @@
 package us.jwf.aoc2020
 
 import java.io.Reader
-import kotlin.system.measureNanoTime
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import us.jwf.aoc.Day
 import us.jwf.aoc.toLongFlow
@@ -10,7 +8,7 @@ import us.jwf.aoc.toLongFlow
 /**
  * Day 9 of AoC 2020
  */
-class Day09 : Day<Long, Long> {
+class Day09EncodingError : Day<Long, Long> {
   /**
    * With your neighbor happily enjoying their video game, you turn your attention to an open data
    * port on the little screen in the seat in front of you.
