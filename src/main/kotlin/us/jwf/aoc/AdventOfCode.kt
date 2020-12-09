@@ -1,6 +1,7 @@
 package us.jwf.aoc
 
 import java.io.Reader
+import kotlin.system.measureNanoTime
 
 /**
  * Wraps functionality for a given year's Advent of Code for use by the CLI.
@@ -18,7 +19,18 @@ abstract class BaseAdventOfCode(vararg ctors: () -> Day<*, *>) : AdventOfCode {
 
   override suspend fun printResult(day: Int, part: Int, input: Reader) {
     val ctor = requireNotNull(lookup[day]) { "Day $day not supported yet." }
-    val result = if (part == 1) ctor().executePart1(input) else ctor().executePart2(input)
-    println(result.toString())
+    var result: Any?
+    val runtimeNanos = measureNanoTime {
+      result = if (part == 1) ctor().executePart1(input) else ctor().executePart2(input)
+    }
+
+    println("+${"-".repeat(78)}+")
+    val title = "${this.javaClass.simpleName}: Day $day, Part $part"
+    val leftPaddedTitle = "${" ".repeat((78 - title.length)/2)}$title"
+    println("|$leftPaddedTitle${" ".repeat(78 - leftPaddedTitle.length)}|")
+    println("+${"-".repeat(78)}+")
+    println()
+    println("Answer: $result")
+    println("Runtime: ${runtimeNanos / (1000.0 * 1000.0)}ms")
   }
 }

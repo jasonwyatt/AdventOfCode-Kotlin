@@ -41,6 +41,20 @@ fun Reader.toIntFlow(delimiter: String = "\n"): Flow<Int> = flow {
 }
 
 /**
+ * Parses the receiving [Reader] as a [Flow] of [Int]s delimited by the provided [delimiter].
+ */
+fun Reader.toLongFlow(delimiter: String = "\n"): Flow<Long> = flow {
+  val scanner = Scanner(this@toLongFlow)
+  scanner.useDelimiter(Pattern.compile(delimiter))
+
+  while (scanner.hasNext()) {
+    val token = scanner.next()
+    val intVal = token.toLong(10) // scanner.nextInt(10)
+    emit(intVal)
+  }
+}
+
+/**
  * Parses the receiving [Reader] into matched-parts of the provided [pattern], delimited by the
  * provided [delimiter].
  */
