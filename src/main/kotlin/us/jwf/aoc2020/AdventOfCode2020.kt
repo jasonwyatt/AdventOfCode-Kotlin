@@ -12,5 +12,5 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day07HandyHaversacks,
   ::Day08HandheldHalting,
   ::Day09EncodingError,
-  ::Day10
+  ::Day10AdapterArray
 )
