@@ -13,5 +13,5 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day08HandheldHalting,
   ::Day09EncodingError,
   ::Day10AdapterArray,
-  ::Day11
+  ::Day11SeatingSystem
 )
