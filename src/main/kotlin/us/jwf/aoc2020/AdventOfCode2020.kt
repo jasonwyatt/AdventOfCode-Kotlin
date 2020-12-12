@@ -14,5 +14,6 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day09EncodingError,
   ::Day10AdapterArray,
   ::Day11SeatingSystem,
-  ::Day12RainRisk
+  ::Day12RainRisk,
+  ::Day13
 )
