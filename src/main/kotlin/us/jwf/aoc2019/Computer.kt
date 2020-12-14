@@ -1,7 +1,23 @@
+@file:Suppress("EXPERIMENTAL_API_USAGE")
+
 package us.jwf.aoc2019
 
 import java.util.LinkedList
 import java.util.Queue
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ProducerScope
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.yield
 
 /**
  * Intcode computer.
@@ -9,6 +25,10 @@ import java.util.Queue
 class Computer(private val initialMemory: IntArray) {
   private var instructionPointer: Int = 0
   private val runningMemory: IntArray = IntArray(initialMemory.size) { initialMemory[it] }
+
+  var name: String = "Computer"
+
+  fun memAt(position: Int): Int = runningMemory[position]
 
   /**
    * Executes the program with the given [arguments], where each [Pair] represents a position and a
@@ -22,16 +42,16 @@ class Computer(private val initialMemory: IntArray) {
    *
    * This would set the memory at position 1 to a value of 5 before execution.
    */
-  fun execute(
+  suspend fun execute(
     vararg arguments: Pair<Int, Int>,
-    input: Queue<Int> = LinkedList(),
-    output: MutableList<Int> = LinkedList()
-  ): Int {
+    input: Channel<Int> = Channel()
+  ): Flow<Int> = channelFlow {
     arguments.forEach { (pos, value) -> runningMemory[pos] = value }
 
     do {
       val op = Op.getForValue(runningMemory[instructionPointer]) ?: break
-      val result = op.execute(instructionPointer, runningMemory, input, output)
+      val state = InstructionState(name, instructionPointer, runningMemory, input, this@channelFlow)
+      val result = op.execute(state)
       when {
         result.isSuccess -> instructionPointer = result.getOrThrow()
         else -> result.exceptionOrNull()
@@ -39,8 +59,6 @@ class Computer(private val initialMemory: IntArray) {
           ?.let { throw it }
       }
     } while (result.isSuccess)
-
-    return runningMemory[0]
   }
 
   /**
@@ -57,11 +75,19 @@ private interface ComputerError {
   class ProgramFinished : ComputerError, Exception()
 }
 
+private data class InstructionState(
+  val computerName: String,
+  val ptr: Int,
+  val memory: IntArray,
+  val i: ReceiveChannel<Int>,
+  val o: ProducerScope<Int>
+)
+
 private enum class Op(
-  val execute: (ptr: Int, memory: IntArray, i: Queue<Int>, o: MutableList<Int>) -> Result<Int>
+  val execute: suspend (state: InstructionState) -> Result<Int>
 ) {
   Add(
-    execute = { ptr, mem, _, _ ->
+    execute = { (_, ptr, mem, _, _) ->
       val (arg1Mode, arg2Mode, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
       val arg2 = if (arg2Mode == 0) mem[mem[ptr + 2]] else mem[ptr + 2]
@@ -71,7 +97,7 @@ private enum class Op(
     }
   ),
   Multiply(
-    execute = { ptr, mem, _, _ ->
+    execute = { (_, ptr, mem, _, _) ->
       val (arg1Mode, arg2Mode, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
       val arg2 = if (arg2Mode == 0) mem[mem[ptr + 2]] else mem[ptr + 2]
@@ -81,22 +107,22 @@ private enum class Op(
     }
   ),
   Input(
-    execute = { ptr, mem, input, _ ->
+    execute = { (_, ptr, mem, input, _) ->
       val outPos = mem[ptr + 1]
-      mem[outPos] = input.poll()
+      mem[outPos] = input.receive()
       Result.success(ptr + 2)
     }
   ),
   Output(
-    execute = { ptr, mem, _, output ->
+    execute = { (_, ptr, mem, _, output) ->
       val (arg1Mode, _, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
-      output.add(arg1)
+      output.send(arg1)
       Result.success(ptr + 2)
     }
   ),
   JumpIfTrue(
-    execute = { ptr, mem, _, _ ->
+    execute = { (_, ptr, mem, _, _) ->
       val (arg1Mode, arg2Mode, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
       val arg2 = if (arg2Mode == 0) mem[mem[ptr + 2]] else mem[ptr + 2]
@@ -106,7 +132,7 @@ private enum class Op(
     }
   ),
   JumpIfFalse(
-    execute = { ptr, mem, _, _ ->
+    execute = { (_, ptr, mem, _, _) ->
       val (arg1Mode, arg2Mode, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
       val arg2 = if (arg2Mode == 0) mem[mem[ptr + 2]] else mem[ptr + 2]
@@ -116,7 +142,7 @@ private enum class Op(
     }
   ),
   LessThan(
-    execute = { ptr, mem, _, _ ->
+    execute = { (_, ptr, mem, _, _) ->
       val (arg1Mode, arg2Mode, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
       val arg2 = if (arg2Mode == 0) mem[mem[ptr + 2]] else mem[ptr + 2]
@@ -126,7 +152,7 @@ private enum class Op(
     }
   ),
   Equals(
-    execute = { ptr, mem, _, _ ->
+    execute = { (_, ptr, mem, _, _) ->
       val (arg1Mode, arg2Mode, _) = getParameterMode(mem[ptr])
       val arg1 = if (arg1Mode == 0) mem[mem[ptr + 1]] else mem[ptr + 1]
       val arg2 = if (arg2Mode == 0) mem[mem[ptr + 2]] else mem[ptr + 2]
@@ -136,7 +162,7 @@ private enum class Op(
     }
   ),
   Exit(
-    execute = { _, _, _, _ -> Result.failure(ComputerError.ProgramFinished()) }
+    execute = { (_, _, _, _, _) -> Result.failure(ComputerError.ProgramFinished()) }
   );
 
   companion object {

@@ -8,5 +8,6 @@ class AdventOfCode2019 : BaseAdventOfCode(
   ::Day03CrossedWires,
   ::Day04SecureContainer,
   ::Day05SunnyAsteroids,
-  ::Day06UniversalOrbitMap
+  ::Day06UniversalOrbitMap,
+  ::Day07AmpflicationProject
 )

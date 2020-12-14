@@ -1,6 +1,7 @@
 package us.jwf.aoc2019
 
 import java.io.Reader
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import us.jwf.aoc.Day
 import us.jwf.aoc.toIntFlow
@@ -89,7 +90,8 @@ class Day02ProgramAlarm : Day<Int, Int> {
   override suspend fun executePart1(input: Reader): Int {
     val intCode = input.toIntFlow(",\\s*").toList().toIntArray()
     val computer = Computer(intCode)
-    return computer.execute(1 to 12, 2 to 2)
+    computer.execute(1 to 12, 2 to 2).collect()
+    return computer.memAt(0)
   }
 
   /**
@@ -147,7 +149,8 @@ class Day02ProgramAlarm : Day<Int, Int> {
       val (arg1, arg2) = queue.removeLast()
       if (arg1 >= intCode.size || arg2 >= intCode.size) continue
 
-      val result = computer.execute(1 to arg1, 2 to arg2)
+      computer.execute(1 to arg1, 2 to arg2).collect()
+      val result = computer.memAt(0)
       if (result == goal) return arg1 * 100 + arg2
 
       val arg1Up = (arg1 + 1) to arg2
