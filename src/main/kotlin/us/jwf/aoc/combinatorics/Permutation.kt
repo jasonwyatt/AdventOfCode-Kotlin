@@ -12,7 +12,7 @@ fun <T> Set<T>.permute(length: Int = this.size): Flow<List<T>> = channelFlow {
 }
 
 @ExperimentalCoroutinesApi
-suspend fun <T> ProducerScope<List<T>>.nextStep(soFar: List<T>, available: Set<T>, target: Int) {
+private suspend fun <T> ProducerScope<List<T>>.nextStep(soFar: List<T>, available: Set<T>, target: Int) {
   if (target == 0) {
     send(soFar)
     return
