@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
-class PermutationsTest {
+class PermutationTest {
   @Test
   fun permute(): Unit = runBlocking {
     val permutations = setOf(0,1,2).permute().toList()
