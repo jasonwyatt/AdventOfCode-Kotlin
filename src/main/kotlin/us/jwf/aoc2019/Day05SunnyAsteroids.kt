@@ -15,22 +15,22 @@ class Day05SunnyAsteroids : Day<Int, Int> {
   override suspend fun executePart1(input: Reader): Int = coroutineScope {
     val intCode = input.toIntFlow(",\\s*").toList().toIntArray()
     val computer = Computer(intCode)
-    val inputChannel = Channel<Int>()
+    val inputChannel = Channel<Long>()
     launch {
       inputChannel.send(1)
     }
     val output = computer.execute(input = inputChannel)
-    output.toList().last()
+    output.toList().last().toInt()
   }
 
   override suspend fun executePart2(input: Reader): Int = coroutineScope {
     val intCode = input.toIntFlow(",\\s*").toList().toIntArray()
     val computer = Computer(intCode)
-    val inputChannel = Channel<Int>()
+    val inputChannel = Channel<Long>()
     launch {
       inputChannel.send(5)
     }
     val output = computer.execute(input = inputChannel)
-    output.toList().last()
+    output.toList().last().toInt()
   }
 }

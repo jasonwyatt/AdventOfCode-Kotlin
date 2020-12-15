@@ -17,5 +17,5 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day12RainRisk,
   ::Day13ShuttleSearch,
   ::Day14DockingData,
-  ::Day15
+  ::Day15RambunctiousRecitation
 )

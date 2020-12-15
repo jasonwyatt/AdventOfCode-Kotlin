@@ -91,7 +91,7 @@ class Day02ProgramAlarm : Day<Int, Int> {
     val intCode = input.toIntFlow(",\\s*").toList().toIntArray()
     val computer = Computer(intCode)
     computer.execute(1 to 12, 2 to 2).collect()
-    return computer.memAt(0)
+    return computer.memAt(0).toInt()
   }
 
   /**
@@ -137,7 +137,7 @@ class Day02ProgramAlarm : Day<Int, Int> {
    */
   override suspend fun executePart2(input: Reader): Int {
     val intCode = input.toIntFlow(",\\s*").toList().toIntArray()
-    val goal = 19690720
+    val goal = 19690720L
 
     val visited = mutableSetOf<Pair<Int, Int>>()
     val queue = ArrayDeque<Pair<Int, Int>>()

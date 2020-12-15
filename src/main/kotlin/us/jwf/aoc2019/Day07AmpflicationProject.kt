@@ -19,15 +19,15 @@ class Day07AmpflicationProject : Day<Int, Int> {
     val program = input.toIntFlow(",").toList().toIntArray()
     val computers = List(5) { Computer(program) }
 
-    return setOf(0,1,2,3,4).permute().fold(-1) { acc, settings ->
+    return setOf(0,1,2,3,4).permute().fold(-1L) { acc, settings ->
       computers.forEach(Computer::reset)
       println("Trying: $settings")
-      var output = 0
+      var output = 0L
       settings.zip(computers).forEach { (setting, computer) ->
-        output = computer.calculateFor(setting, output)
+        output = computer.calculateFor(setting, output.toInt())
       }
       maxOf(acc, output)
-    }
+    }.toInt()
   }
 
   override suspend fun executePart2(input: Reader): Int = coroutineScope {
@@ -36,7 +36,7 @@ class Day07AmpflicationProject : Day<Int, Int> {
 
     setOf(5,6,7,8,9).permute().fold(-1) { acc, settings ->
       computers.forEach(Computer::reset)
-      val inputs = List(5) { Channel<Int>(Channel.BUFFERED) }
+      val inputs = List(5) { Channel<Long>(Channel.BUFFERED) }
 
       val outputs = inputs.zip(computers)
         .map { (inputChannel, computer) ->
@@ -45,7 +45,7 @@ class Day07AmpflicationProject : Day<Int, Int> {
       launch {
         // Send our initial phase inputs.
         settings.zip(inputs).forEachIndexed { index, (setting, inputChannel) ->
-          inputChannel.send(setting)
+          inputChannel.send(setting.toLong())
           if (index == 0) inputChannel.send(0)
         }
       }
@@ -54,7 +54,7 @@ class Day07AmpflicationProject : Day<Int, Int> {
       val jobs = outputs.mapIndexed { index, output ->
         launch {
           output.collect {
-            lastOutput[index] = it
+            lastOutput[index] = it.toInt()
             inputs[(index + 1) % inputs.size].send(it)
           }
         }
@@ -64,11 +64,11 @@ class Day07AmpflicationProject : Day<Int, Int> {
     }
   }
 
-  suspend fun Computer.calculateFor(phaseSetting: Int, inputSignal: Int): Int = coroutineScope {
-    val inputChannel = Channel<Int>()
+  suspend fun Computer.calculateFor(phaseSetting: Int, inputSignal: Int): Long = coroutineScope {
+    val inputChannel = Channel<Long>()
     launch {
-      inputChannel.send(phaseSetting)
-      inputChannel.send(inputSignal)
+      inputChannel.send(phaseSetting.toLong())
+      inputChannel.send(inputSignal.toLong())
     }
     execute(input = inputChannel).toList().first()
   }
