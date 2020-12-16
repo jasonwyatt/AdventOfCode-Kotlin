@@ -7,7 +7,7 @@ import us.jwf.aoc.product
 /**
  * Day 16 of AoC 2020
  */
-class Day16 : Day<Int, Long> {
+class Day16TicketTranslation : Day<Int, Long> {
   /**
    * As you're walking to yet another connecting flight, you realize that one of the legs of your
    * re-routed trip coming up is on a high-speed train. However, the train ticket you were given is
@@ -212,5 +212,5 @@ class Day16 : Day<Int, Long> {
   }
 }
 
-fun Collection<Day16.Rule>.check(ticket: List<Int>): Boolean =
+fun Collection<Day16TicketTranslation.Rule>.check(ticket: List<Int>): Boolean =
   ticket.none { field -> all { rule -> !rule.check(field) } }
