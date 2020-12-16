@@ -8,6 +8,7 @@ import java.util.Scanner
 import java.util.regex.Pattern
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.fold
 
 /**
  * Fetches an [InputStreamReader] for the receiving [String?].
@@ -85,3 +86,7 @@ fun Reader.toLineFlow(delimiter: String = "\n"): Flow<String> = flow {
  */
 fun String.isIntInRange(range: IntRange): Boolean =
   toIntOrNull(10)?.let { it in range } == true
+
+fun Iterable<Long>.product(): Long = fold(1L) { acc, value -> value * acc }
+fun <T> Iterable<T>.product(block: (T) -> Long): Long =
+  fold(1L) { acc, value -> block(value) * acc }
