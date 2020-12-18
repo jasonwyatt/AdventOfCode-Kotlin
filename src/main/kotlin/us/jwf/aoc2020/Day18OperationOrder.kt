@@ -4,10 +4,10 @@ import java.io.Reader
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
 import us.jwf.aoc.Day
-import us.jwf.aoc.parsing.Group
-import us.jwf.aoc.parsing.InfixExpression
-import us.jwf.aoc.parsing.Operator
-import us.jwf.aoc.parsing.Value
+import us.jwf.aoc.parsing.expression.Group
+import us.jwf.aoc.parsing.expression.InfixExpression
+import us.jwf.aoc.parsing.expression.Operator
+import us.jwf.aoc.parsing.expression.Value
 import us.jwf.aoc.toLineFlow
 
 /**

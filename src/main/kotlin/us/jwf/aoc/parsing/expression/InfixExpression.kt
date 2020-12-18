@@ -1,4 +1,4 @@
-package us.jwf.aoc.parsing
+package us.jwf.aoc.parsing.expression
 
 open class InfixExpression<T>(private val tokens: List<ExpressionToken<T>>) : Expression<T> {
   override fun evaluate(): T {
@@ -25,7 +25,8 @@ open class InfixExpression<T>(private val tokens: List<ExpressionToken<T>>) : Ex
             if (top.precedence > it.precedence) {
               postfixStack.add(top)
             } else if (top.precedence == it.precedence &&
-              it.associativity == Operator.Associativity.LEFT) {
+              it.associativity == Operator.Associativity.LEFT
+            ) {
               postfixStack.add(top)
             } else {
               operatorStack.add(top)

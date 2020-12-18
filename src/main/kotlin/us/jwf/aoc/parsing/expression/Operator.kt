@@ -1,4 +1,4 @@
-package us.jwf.aoc.parsing
+package us.jwf.aoc.parsing.expression
 
 interface Operator<T> : ExpressionToken<T> {
   val precedence: Int

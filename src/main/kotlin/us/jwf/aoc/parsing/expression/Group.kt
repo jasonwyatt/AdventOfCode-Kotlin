@@ -1,4 +1,4 @@
-package us.jwf.aoc.parsing
+package us.jwf.aoc.parsing.expression
 
 sealed class Group<T> : ExpressionToken<T> {
   class Open<T>() : Group<T>()
