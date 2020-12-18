@@ -18,6 +18,7 @@ open class InfixExpression<T>(private val tokens: List<ExpressionToken<T>>) : Ex
             postfixStack.add(operatorStack.removeLast())
           }
         }
+        is Function<*> -> operatorStack.add(it)
         is Operator<*> -> {
           while(true) {
             operatorStack.lastOrNull() as? Operator<T> ?: break
