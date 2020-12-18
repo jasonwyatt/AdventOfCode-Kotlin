@@ -1,6 +1,6 @@
 package us.jwf.aoc.parsing
 
-class InfixExpression<T>(private val tokens: List<ExpressionToken<T>>) : Expression<T> {
+open class InfixExpression<T>(private val tokens: List<ExpressionToken<T>>) : Expression<T> {
   override fun evaluate(): T {
     val postfixStack = mutableListOf<ExpressionToken<T>>()
     val operatorStack = mutableListOf<ExpressionToken<T>>()
