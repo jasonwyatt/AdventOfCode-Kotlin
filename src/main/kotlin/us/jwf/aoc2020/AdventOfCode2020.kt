@@ -21,5 +21,5 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day16TicketTranslation,
   ::Day17ConwayCubes,
   ::Day18OperationOrder,
-  ::Day19
+  ::Day19MonsterMessages
 )
