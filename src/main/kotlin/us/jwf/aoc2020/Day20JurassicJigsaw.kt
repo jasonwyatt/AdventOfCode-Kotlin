@@ -18,7 +18,7 @@ import us.jwf.aoc.toLineFlow
 /**
  * Day 20 of AoC 2020
  */
-class Day20 : Day<Long, Long> {
+class Day20JurassicJigsaw : Day<Long, Long> {
   override suspend fun executePart1(input: Reader): Long {
     val tiles = input.toTileFlow().toList()
     val matchCounts = mutableMapOf<Int, List<Long>>()
