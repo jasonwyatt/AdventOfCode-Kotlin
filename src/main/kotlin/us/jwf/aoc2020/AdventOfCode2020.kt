@@ -23,5 +23,6 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day18OperationOrder,
   ::Day19MonsterMessages,
   ::Day20JurassicJigsaw,
-  ::Day21AllergenAssessment
+  ::Day21AllergenAssessment,
+  ::Day22
 )
