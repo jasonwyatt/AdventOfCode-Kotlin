@@ -126,10 +126,11 @@ class Day23CrabCups : Day<String, Long> {
       while (nodesByValue[nextValue] in inactiveNodes) {
         nextValue = if (nextValue == lowest) highest else nextValue - 1
       }
+      inactiveNodes.clear()
+
       val destination = checkNotNull(nodesByValue[nextValue])
       destination.insertAfter(taken)
 
-      inactiveNodes.clear()
       current = checkNotNull(current.next)
     }
   }

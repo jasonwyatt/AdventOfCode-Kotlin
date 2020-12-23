@@ -25,5 +25,6 @@ class AdventOfCode2020 : BaseAdventOfCode(
   ::Day20JurassicJigsaw,
   ::Day21AllergenAssessment,
   ::Day22CrabCombat,
-  ::Day23CrabCups
+  ::Day23CrabCups,
+  ::Day24
 )
