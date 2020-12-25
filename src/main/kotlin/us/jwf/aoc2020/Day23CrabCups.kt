@@ -2,6 +2,8 @@ package us.jwf.aoc2020
 
 import java.io.Reader
 import java.lang.StringBuilder
+import java.util.*
+import kotlin.system.measureNanoTime
 import us.jwf.aoc.Day
 
 /**
@@ -105,28 +107,28 @@ class Day23CrabCups : Day<String, Long> {
     // Play the game.
     playGame(10000000, nodes[0], nodesByValue)
 
-    return nodes[0].find(1).let {
+    return nodesByValue[1]?.let {
       val next = checkNotNull(it.next)
       val nextNext = checkNotNull(next.next)
       next.value.toLong() * nextNext.value.toLong()
-    }
+    } ?: 0
   }
 
   private fun playGame(rounds: Int, startNode: Node, nodesByValue: Map<Int, Node>) {
-    val inactiveNodes = mutableSetOf<Node>()
+    val inactiveNodes = BooleanArray(nodesByValue.size + 1)
     val lowest = nodesByValue.keys.minOrNull() ?: return
     val highest = nodesByValue.keys.maxOrNull() ?: return
 
     var current = startNode
     repeat(rounds) {
       val taken = current.removeThree()
-      taken.forEach { inactiveNodes.add(it) }
+      taken.forEach { inactiveNodes[it.value] = true }
 
       var nextValue = if (current.value == lowest) highest else current.value - 1
-      while (nodesByValue[nextValue] in inactiveNodes) {
+      while (inactiveNodes[nextValue]) {
         nextValue = if (nextValue == lowest) highest else nextValue - 1
       }
-      inactiveNodes.clear()
+      taken.forEach { inactiveNodes[it.value] = false }
 
       val destination = checkNotNull(nodesByValue[nextValue])
       destination.insertAfter(taken)
