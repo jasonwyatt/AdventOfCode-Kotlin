@@ -13,24 +13,16 @@ class Day01SonarSweep : Day<Int, Int> {
   override suspend fun executePart1(input: Reader): Int {
     val depths = input.toIntFlow().toList()
 
-    return depths.withIndex()
-      .fold(0) { acc, (i, value) ->
-        if (i > 0 && depths[i - 1] < value) acc + 1 else acc
-      }
+    return depths.windowed(2) { if (it[0] < it[1]) 1 else 0 }
+      .sum()
   }
 
   override suspend fun executePart2(input: Reader): Int {
     val depths = input.toIntFlow().toList()
-    var depthWindows: List<Int>
 
-    return depths.withIndex()
-      .fold(emptyList<Int>()) { acc, (i, value) ->
-        if (i > 1) acc + (value + depths[i - 1] + depths[i - 2]) else acc
-      }
-      .also { depthWindows = it }
-      .withIndex()
-      .fold(0) { acc, (i, value) ->
-        if (i > 0 && depthWindows[i - 1] < value) acc + 1 else acc
-      }
+    return depths
+      .windowed(3) { it.sum() }
+      .windowed(2) { if (it[0] < it[1]) 1 else 0 }
+      .sum()
   }
 }
