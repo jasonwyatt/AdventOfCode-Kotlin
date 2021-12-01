@@ -11,16 +11,13 @@ import us.jwf.aoc.toIntFlow
  */
 class Day01SonarSweep : Day<Int, Int> {
   override suspend fun executePart1(input: Reader): Int {
-    val depths = input.toIntFlow().toList()
-
-    return depths.windowed(2) { if (it[0] < it[1]) 1 else 0 }
+    return input.toIntFlow().toList()
+      .windowed(2) { if (it[0] < it[1]) 1 else 0 }
       .sum()
   }
 
   override suspend fun executePart2(input: Reader): Int {
-    val depths = input.toIntFlow().toList()
-
-    return depths
+    return input.toIntFlow().toList()
       .windowed(3) { it.sum() }
       .windowed(2) { if (it[0] < it[1]) 1 else 0 }
       .sum()
