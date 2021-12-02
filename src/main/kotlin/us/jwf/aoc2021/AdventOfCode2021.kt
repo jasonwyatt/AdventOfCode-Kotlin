@@ -4,5 +4,6 @@ import us.jwf.aoc.BaseAdventOfCode
 
 class AdventOfCode2021 : BaseAdventOfCode(
   ::Day01SonarSweep,
-  ::Day02Dive
+  ::Day02Dive,
+  ::Day03,
 )
