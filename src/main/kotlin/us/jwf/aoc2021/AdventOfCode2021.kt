@@ -7,4 +7,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day02Dive,
   ::Day03BinaryDiagnostic,
   ::Day04GiantSquid,
+  ::Day05,
 )
