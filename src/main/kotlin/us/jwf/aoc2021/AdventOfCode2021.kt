@@ -10,4 +10,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day05HydrothermalVenture,
   ::Day06Lanternfish,
   ::Day07TreacheryOfWhales,
+  ::Day08,
 )
