@@ -8,4 +8,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day03SphericalHouses,
   ::Day04StockingStuffer,
   ::Day05InternElves,
+  ::Day06FireHazard,
 )
