@@ -7,4 +7,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day02NoMath,
   ::Day03SphericalHouses,
   ::Day04StockingStuffer,
+  ::Day05,
 )
