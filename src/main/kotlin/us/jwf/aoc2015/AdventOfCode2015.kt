@@ -15,4 +15,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day10LookSay,
   ::Day11CorporatePolicy,
   ::Day12JSAbacusFramework,
+  ::Day13Knights,
 )
