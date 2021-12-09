@@ -11,4 +11,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day06FireHazard,
   ::Day07SomeAssembly,
   ::Day08Matchsticks,
+  ::Day09SingleNight,
 )
