@@ -17,6 +17,7 @@ dependencies {
   testImplementation("com.google.truth:truth:1.1")
   implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.3")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC")
+  implementation("org.json:json:20211205")
 }
 
 tasks.test {
