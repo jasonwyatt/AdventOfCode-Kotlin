@@ -13,4 +13,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day08SevenSegmentSearch,
   ::Day09SmokeBasin,
   ::Day10SyntaxScoring,
+  ::Day11,
 )
