@@ -10,7 +10,7 @@ import us.jwf.aoc.toMatchFlow
 /**
  * AoC 2015 - Day 14
  */
-class Day14 : Day<Int, Int> {
+class Day14ReindeerOlympics : Day<Int, Int> {
   override suspend fun executePart1(input: Reader): Int {
     return input.toMatchFlow(Reindeer.PATTERN)
       .map { Reindeer(it[1], it[2].toInt(), it[3].toInt(), it[5].toInt()) }
