@@ -16,4 +16,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day11DumboOctopus,
   ::Day12PassagePathing,
   ::Day13TransparentOrigami,
+  ::Day14,
 )
