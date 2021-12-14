@@ -18,4 +18,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day13Knights,
   ::Day14ReindeerOlympics,
   ::Day15HungryPeople,
+  ::Day16AuntSue,
 )
