@@ -12,7 +12,7 @@ class Day16AuntSue : Day<Int, Int> {
   }
 
   override suspend fun executePart2(input: Reader): Int {
-    TODO("Not yet implemented")
+    return input.readLines().map { SueStats.parse(it) }.find { it.isTarget2() }!!.id
   }
 
   data class SueStats(
@@ -37,6 +37,19 @@ class Day16AuntSue : Day<Int, Int> {
         (vizslas?.let { it == TARGET.vizslas } ?: true) &&
         (goldfish?.let { it == TARGET.goldfish } ?: true) &&
         (trees?.let { it == TARGET.trees } ?: true) &&
+        (cars?.let { it == TARGET.cars } ?: true) &&
+        (perfumes?.let { it == TARGET.perfumes } ?: true)
+    }
+
+    fun isTarget2(): Boolean {
+      return (children?.let { it == TARGET.children } ?: true) &&
+        (cats?.let { it > TARGET.cats!! } ?: true) &&
+        (samoyeds?.let { it == TARGET.samoyeds } ?: true) &&
+        (pomeranians?.let { it < TARGET.pomeranians!! } ?: true) &&
+        (akitas?.let { it == TARGET.akitas } ?: true) &&
+        (vizslas?.let { it == TARGET.vizslas } ?: true) &&
+        (goldfish?.let { it < TARGET.goldfish!! } ?: true) &&
+        (trees?.let { it > TARGET.trees!! } ?: true) &&
         (cars?.let { it == TARGET.cars } ?: true) &&
         (perfumes?.let { it == TARGET.perfumes } ?: true)
     }
