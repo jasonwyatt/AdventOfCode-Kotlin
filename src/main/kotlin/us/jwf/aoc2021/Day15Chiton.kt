@@ -22,7 +22,7 @@ class Day15Chiton : Day<Int, Int> {
         val oy = gy % lines.size
         val ox = gx % lines[0].length
         val newValue = orig[oy][ox] + gy / lines.size + gx / lines[0].length
-        wrapLookup[newValue]!!
+        if (newValue % 9 == 0) 9 else newValue % 9
       }
     }
     return minDistance(grid)
@@ -84,30 +84,6 @@ class Day15Chiton : Day<Int, Int> {
     }
     return 0
   }
-
-  val wrapLookup = mapOf(
-    1 to 1,
-    2 to 2,
-    3 to 3,
-    4 to 4,
-    5 to 5,
-    6 to 6,
-    7 to 7,
-    8 to 8,
-    9 to 9,
-    10 to 1,
-    11 to 2,
-    12 to 3,
-    13 to 4,
-    14 to 5,
-    15 to 6,
-    16 to 7,
-    17 to 8,
-    18 to 9,
-    19 to 1,
-    20 to 2,
-    21 to 3
-  )
 
   data class Point(val x: Int, val y: Int)
   data class Pos(val point: Point, val risk: Int)
