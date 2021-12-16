@@ -10,19 +10,17 @@ class Day16PacketDecoder : Day<Int, ULong> {
   override suspend fun executePart1(input: Reader): Int {
     val (packetTree, _) = Packet.parse(input.readLines()[0].hexToBinary(), 0)
 
-    fun addUpVersions(packet: Packet): Int {
-      return when (packet) {
+    fun addUpVersions(packet: Packet): Int =
+      when (packet) {
         is Packet.Literal -> packet.version
         is Packet.Operator -> packet.version + packet.subPackets.sumOf { addUpVersions(it) }
       }
-    }
 
     return addUpVersions(packetTree)
   }
 
   override suspend fun executePart2(input: Reader): ULong {
-    val (packetTree, _) = Packet.parse(input.readLines()[0].hexToBinary(), 0)
-    return packetTree.eval()
+    return Packet.parse(input.readLines()[0].hexToBinary(), 0).first.eval()
   }
 
   fun String.hexToBinary(): String {
