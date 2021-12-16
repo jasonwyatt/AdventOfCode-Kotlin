@@ -19,4 +19,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day14Polymerization,
   ::Day15Chiton,
   ::Day16PacketDecoder,
+  ::Day17,
 )
