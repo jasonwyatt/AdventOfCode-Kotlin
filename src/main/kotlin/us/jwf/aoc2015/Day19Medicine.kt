@@ -1,6 +1,8 @@
 package us.jwf.aoc2015
 
 import java.io.Reader
+import java.util.LinkedList
+import java.util.PriorityQueue
 import us.jwf.aoc.Day
 
 /**
@@ -40,10 +42,58 @@ class Day19Medicine : Day<Int, Int> {
   override suspend fun executePart2(input: Reader): Int {
     // A* with LevenshteinDistance.
     // Or: start from long string and try to find e by going backwards....
-    TODO("Not yet implemented")
+    val atomsFromRules = mutableMapOf<Rule, Atom>()
+    var doneWithRules = false
+    var molecule = emptyList<Atom>()
+
+    input.readLines().forEach { line ->
+      if (line.isBlank() || line.isEmpty()) {
+        doneWithRules = true
+      } else if (doneWithRules) {
+        molecule = Atom.parseMolecule(line)
+      } else {
+        Rule.parse(line).also {
+          atomsFromRules[it] = it.input
+        }
+      }
+    }
+
+    val orderedRules = atomsFromRules.keys.sortedBy { -it.output.size }
+
+    val visited = mutableSetOf(molecule)
+    val queue =
+      PriorityQueue<Pair<List<Atom>, Int>> { a, b -> a.first.size compareTo b.first.size }
+        .apply { add(molecule to 0) }
+    while (queue.isNotEmpty()) {
+      val (currentMolecule, currentSteps) = queue.poll()
+      if (currentMolecule == listOf(Atom("e"))) return currentSteps
+
+      orderedRules.forEach { rule ->
+        currentMolecule.windowed(rule.output.size)
+          .withIndex()
+          .forEach inner@{ (i, window) ->
+            if (window != rule.output) return@inner
+
+            val left = if (i > 0) currentMolecule.subList(0, i) else emptyList()
+            val right = if (i < currentMolecule.size - rule.output.size) {
+              currentMolecule.subList(i + rule.output.size, currentMolecule.size)
+            } else emptyList()
+
+            val candidate = left + atomsFromRules[rule]!! + right
+            if (candidate !in visited && candidate.size <= currentMolecule.size) {
+              visited.add(candidate)
+              queue.add(candidate to currentSteps + 1)
+            }
+            if (candidate == listOf(Atom("e"))) return currentSteps + 1
+          }
+      }
+    }
+    return 0
   }
 
   data class Atom(val symbol: String) {
+    override fun toString(): String = symbol
+
     companion object {
       private val elementPattern = "[A-Z][a-z]?".toRegex()
       fun parseMolecule(input: String): List<Atom> {
