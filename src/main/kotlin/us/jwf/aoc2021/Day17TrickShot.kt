@@ -10,7 +10,6 @@ class Day17TrickShot : Day<Int, Int> {
   override suspend fun executePart1(input: Reader): Int {
     val targetArea = Rect(96..125, -144..-98)
 
-    val solutions = mutableSetOf<Pair<Int, Int>>()
     val highestValidYs = mutableSetOf<Int>()
 
     (1..125).forEach { candidateDx ->
@@ -23,7 +22,6 @@ class Day17TrickShot : Day<Int, Int> {
         } while (probe.keepGoing(targetArea))
         if (probe in targetArea) {
           highestValidYs += highestY
-          solutions.add(candidateDx to candidateDy)
         }
       }
     }
@@ -35,18 +33,14 @@ class Day17TrickShot : Day<Int, Int> {
     val targetArea = Rect(96..125, -144..-98)
 
     val solutions = mutableSetOf<Pair<Int, Int>>()
-    val highestValidYs = mutableSetOf<Int>()
 
     (1..targetArea.xRange.last).forEach { candidateDx ->
       (targetArea.yRange.first..1000).forEach { candidateDy ->
         var probe = Probe(0, 0, 0, candidateDx, candidateDy)
-        var highestY = 0
         do {
           probe = probe.step()
-          highestY = maxOf(highestY, probe.y)
         } while (probe.keepGoing(targetArea))
         if (probe in targetArea) {
-          highestValidYs += highestY
           solutions.add(candidateDx to candidateDy)
         }
       }
