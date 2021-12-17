@@ -18,6 +18,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.3")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC")
   implementation("org.json:json:20211205")
+  implementation("org.apache.commons:commons-text:1.9")
 }
 
 tasks.test {

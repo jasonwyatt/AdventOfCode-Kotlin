@@ -20,5 +20,6 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day15HungryPeople,
   ::Day16AuntSue,
   ::Day17NoSuchThing,
-  ::Day18LikeAGif
+  ::Day18LikeAGif,
+  ::Day19Medicine,
 )
