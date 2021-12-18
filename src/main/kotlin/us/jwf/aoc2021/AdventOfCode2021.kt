@@ -20,5 +20,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day15Chiton,
   ::Day16PacketDecoder,
   ::Day17TrickShot,
-  ::Day18,
+  ::Day18Snailfish,
 )
