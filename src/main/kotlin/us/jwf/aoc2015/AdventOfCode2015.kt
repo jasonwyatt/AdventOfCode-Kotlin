@@ -23,4 +23,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day18LikeAGif,
   ::Day19Medicine,
   ::Day20InfiniteElves,
+  ::Day21RpgSimulator,
 )
