@@ -22,5 +22,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day17TrickShot,
   ::Day18Snailfish,
   ::Day19BeaconScanner,
-  ::Day20,
+  ::Day20TrenchMap,
 )
