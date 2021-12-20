@@ -21,5 +21,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day16PacketDecoder,
   ::Day17TrickShot,
   ::Day18Snailfish,
-  ::Day19,
+  ::Day19BeaconScanner,
 )
