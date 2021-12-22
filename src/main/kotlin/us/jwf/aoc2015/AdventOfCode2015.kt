@@ -26,4 +26,5 @@ class AdventOfCode2015 : BaseAdventOfCode(
   ::Day21RpgSimulator,
   ::Day22WizardSimulator,
   ::Day23TuringLock,
+  ::Day24HangsInTheBalance,
 )
