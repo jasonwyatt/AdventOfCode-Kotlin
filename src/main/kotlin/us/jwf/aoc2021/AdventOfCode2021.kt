@@ -25,5 +25,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day20TrenchMap,
   ::Day21DiracDice,
   ::Day22ReactorReboot,
-  ::Day23,
+  ::Day23Amphipod,
 )

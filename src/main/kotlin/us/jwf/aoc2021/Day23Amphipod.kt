@@ -2,26 +2,24 @@ package us.jwf.aoc2021
 
 import java.io.Reader
 import java.util.LinkedList
-import java.util.PriorityQueue
-import java.util.Stack
 import us.jwf.aoc.Day
-import us.jwf.aoc2021.Day23.Amphipod.Type
-import us.jwf.aoc2021.Day23.Amphipod.Type.A
-import us.jwf.aoc2021.Day23.Amphipod.Type.B
-import us.jwf.aoc2021.Day23.Amphipod.Type.C
-import us.jwf.aoc2021.Day23.Amphipod.Type.D
-import us.jwf.aoc2021.Day23.Board.Companion.SPACES
-import us.jwf.aoc2021.Day23.Board.Companion.SPACES2
-import us.jwf.aoc2021.Day23.Board.Spaces
-import us.jwf.aoc2021.Day23.Space.EntranceWay
-import us.jwf.aoc2021.Day23.Space.Hallway
-import us.jwf.aoc2021.Day23.Space.Room
-import us.jwf.aoc2021.Day23.Space.Wall
+import us.jwf.aoc2021.Day23Amphipod.Amphipod.Type
+import us.jwf.aoc2021.Day23Amphipod.Amphipod.Type.A
+import us.jwf.aoc2021.Day23Amphipod.Amphipod.Type.B
+import us.jwf.aoc2021.Day23Amphipod.Amphipod.Type.C
+import us.jwf.aoc2021.Day23Amphipod.Amphipod.Type.D
+import us.jwf.aoc2021.Day23Amphipod.Board.Companion.SPACES
+import us.jwf.aoc2021.Day23Amphipod.Board.Companion.SPACES2
+import us.jwf.aoc2021.Day23Amphipod.Board.Spaces
+import us.jwf.aoc2021.Day23Amphipod.Space.EntranceWay
+import us.jwf.aoc2021.Day23Amphipod.Space.Hallway
+import us.jwf.aoc2021.Day23Amphipod.Space.Room
+import us.jwf.aoc2021.Day23Amphipod.Space.Wall
 
 /**
  * AoC 2021 - Day 23
  */
-class Day23 : Day<Int, Int> {
+class Day23Amphipod : Day<Int, Int> {
   val actual = setOf(
     Amphipod(C, 2, 3),
     Amphipod(D, 3, 3),
@@ -96,34 +94,6 @@ class Day23 : Day<Int, Int> {
     return solve(start)
   }
 
-  private fun print(list: List<Set<Amphipod>>) {
-    //if (list.first().size == 16) {
-      list.forEach {
-        val chars = Array(7) { CharArray(13) { ' ' } }
-        SPACES2.forEach { space ->
-          val c = when (space) {
-            is EntranceWay -> '.'
-            is Hallway -> '.'
-            is Room -> '.'
-            is Wall -> '#'
-          }
-          chars[space.i][space.j] = c
-        }
-        it.forEach { amp ->
-          val c = when (amp.type) {
-            A -> 'A'
-            B -> 'B'
-            C -> 'C'
-            D -> 'D'
-          }
-          chars[amp.i][amp.j] = c
-        }
-        chars.forEach { line -> println(String(line)) }
-        println()
-      }
-    //}
-  }
-
   private fun solve(start: Board): Int {
     val cache = mutableMapOf<Board, Int>()
     var minSeenYet = Int.MAX_VALUE
@@ -134,8 +104,6 @@ class Day23 : Day<Int, Int> {
         cache[state] = state.totalCostPaid
         if (state.totalCostPaid < minSeenYet) {
           minSeenYet = state.totalCostPaid
-          print(steps)
-          println("Found min yet: $minSeenYet")
         }
         return state.totalCostPaid
       }
@@ -150,38 +118,7 @@ class Day23 : Day<Int, Int> {
       return (nextBoards.minOfOrNull { recurse(it, steps + listOf(it.amphipods)) } ?: Int.MAX_VALUE)
         .also { cache[state] = it }
     }
-    val minTotalCost = recurse(start)
-
-    /*
-    val visited = mutableSetOf<Set<Amphipod>>()
-    val queue =
-      PriorityQueue<Board> { a, b -> a.totalCostPaid - b.totalCostPaid }
-        .also { it.add(start) }
-    var i = 0
-    while (queue.isNotEmpty()) {
-      val board = queue.poll()
-      if (board.amphipods in visited) continue
-      visited.add(board.amphipods)
-      i++
-      if (i % 100 == 0) println("Evaluating $board")
-      if (board.isDone()) {
-        println("Found done board: $board")
-        println("  cost = ${board.totalCostPaid}")
-        minTotalCost = minOf(board.totalCostPaid, minTotalCost)
-        println("  minCost = $minTotalCost")
-        return minTotalCost
-      } else {
-        board.findNextBoards()
-          .filter { it.amphipods !in visited }
-          .forEach {
-            queue.add(it)
-          }
-      }
-      break
-    }
-     */
-
-    return minTotalCost
+    return recurse(start)
   }
 
   sealed class Space(i: Int, j: Int) {
