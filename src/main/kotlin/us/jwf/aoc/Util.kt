@@ -90,3 +90,5 @@ fun String.isIntInRange(range: IntRange): Boolean =
 fun Iterable<Long>.product(): Long = fold(1L) { acc, value -> value * acc }
 fun <T> Iterable<T>.product(block: (T) -> Long): Long =
   fold(1L) { acc, value -> block(value) * acc }
+
+data class Point(val x: Int, val y: Int)
