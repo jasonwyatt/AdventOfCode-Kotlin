@@ -27,4 +27,5 @@ class AdventOfCode2021 : BaseAdventOfCode(
   ::Day22ReactorReboot,
   ::Day23Amphipod,
   ::Day24,
+  ::Day25SeaCucumber
 )
