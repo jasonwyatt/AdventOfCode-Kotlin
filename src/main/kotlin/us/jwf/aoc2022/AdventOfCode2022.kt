@@ -5,5 +5,7 @@ import us.jwf.aoc.BaseAdventOfCode
 class AdventOfCode2022 : BaseAdventOfCode(
   ::Day01CalorieCounting,
   ::Day02RockPaperScissors,
-  ::Day03,
+  ::Day03Rucksack,
+  ::Day04CampCleanup,
+  ::Day05SupplyStacks
 )
