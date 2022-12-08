@@ -7,5 +7,7 @@ class AdventOfCode2022 : BaseAdventOfCode(
   ::Day02RockPaperScissors,
   ::Day03Rucksack,
   ::Day04CampCleanup,
-  ::Day05SupplyStacks
+  ::Day05SupplyStacks,
+  ::Day06,
+  ::Day07NoSpace,
 )
