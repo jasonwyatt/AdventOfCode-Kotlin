@@ -10,4 +10,5 @@ class AdventOfCode2022 : BaseAdventOfCode(
   ::Day05SupplyStacks,
   ::Day06,
   ::Day07NoSpace,
+  ::Day08TreetopTreeHouse,
 )
