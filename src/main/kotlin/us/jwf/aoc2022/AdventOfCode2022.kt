@@ -11,4 +11,10 @@ class AdventOfCode2022 : BaseAdventOfCode(
   ::Day06,
   ::Day07NoSpace,
   ::Day08TreetopTreeHouse,
+  ::Day09RopeBridge,
+  ::Day10CathodeRayTube,
+  ::Day11MonkeyInTheMiddle,
+  ::Day12HillClimbing,
+  ::Day13DistressSignal,
+  ::Day14RegolithReservoir,
 )
